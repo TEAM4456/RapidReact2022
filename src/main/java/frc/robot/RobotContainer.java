@@ -77,7 +77,7 @@ public class RobotContainer {
                                        Constants.kaVoltsSecondSquaredPerMeter),
             drive.getKinematics(),
             10);
-        TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.maxVelocity, 3).setKinematics(drive.getKinematics()).addConstraint(autoVoltageConstraint);
+        TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.maxVelocity, Constants.kMaxAccelerationMetersPerSecondSquared).setKinematics(drive.getKinematics()).addConstraint(autoVoltageConstraint);
 
         Trajectory traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)), List.of(new Translation2d(.5, 0)), new Pose2d(1, 0, new Rotation2d((0))), trajectoryConfig);
         

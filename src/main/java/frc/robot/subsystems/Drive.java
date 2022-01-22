@@ -28,7 +28,7 @@ public class Drive extends SubsystemBase {
   private final WPI_TalonFX rightDrive;
 
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
-  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading(), new Pose2d(0, 0, new Rotation2d()));
 
   public Drive(WPI_TalonFX leftMaster, WPI_TalonFX rightMaster) {
     leftDrive = leftMaster;
