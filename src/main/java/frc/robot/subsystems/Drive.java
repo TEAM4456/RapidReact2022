@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 
@@ -15,18 +16,19 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 
 
 public class Drive extends SubsystemBase {
-  //private Pose2d pose = new Pose2d();
+  private Pose2d pose = new Pose2d();
 
   private final WPI_TalonFX leftDrive;
   private final WPI_TalonFX rightDrive;
 
-  //DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
-  //DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
   public Drive(WPI_TalonFX leftMaster, WPI_TalonFX rightMaster) {
     leftDrive = leftMaster;
@@ -35,10 +37,12 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
+   
+    SmartDashboard.putNumber("NavX Angle", RobotMap.navx.getAngle());
     SmartDashboard.putNumber("Left Encoder", leftDrive.getSelectedSensorPosition());
     SmartDashboard.putNumber("Right Encoder", rightDrive.getSelectedSensorPosition());
-    //pose = odometry.update(getHeading(), getSpeeds().leftMetersPerSecond, getSpeeds().rightMetersPerSecond);
+    
+    pose = odometry.update(getHeading(), getSpeeds().leftMetersPerSecond, getSpeeds().rightMetersPerSecond);
     // This method will be called once per scheduler run
   }
 
@@ -48,12 +52,33 @@ public class Drive extends SubsystemBase {
   }
 
   public Rotation2d getHeading() {
-    return Rotation2d.fromDegrees(-RobotMap.gyro.getAngle());
+    return Rotation2d.fromDegrees(-RobotMap.navx.getAngle());
   }
 
   public DifferentialDriveWheelSpeeds getSpeeds(){
     return new DifferentialDriveWheelSpeeds((leftDrive.getSelectedSensorVelocity() / 10.71 *2*Math.PI * Units.inchesToMeters(3)) / 60, (rightDrive.getSelectedSensorVelocity() / 10.71 *2*Math.PI * Units.inchesToMeters(3)) / 60);
   }
 
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftDrive.set(ControlMode.PercentOutput, leftVolts / Constants.maxVolts);
+    rightDrive.set(ControlMode.PercentOutput, rightVolts / Constants.maxVolts);
+  }
+
+  public Pose2d getPose(){
+    return odometry.getPoseMeters();
+  }
+
+  public DifferentialDriveKinematics getKinematics(){
+    return kinematics;
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    //resetEncoders();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading().getDegrees()));
+  }
+
+  public void zeroHeading(){
+    RobotMap.navx.reset();
+  }
   
 }
