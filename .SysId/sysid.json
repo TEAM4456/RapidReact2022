@@ -1,0 +1,11 @@
+{
+  "SysId": {
+    "Analysis Type": "Drivetrain",
+    "AnalyzerJSONLocation": "C:\\Users\\Public\\wpilib\\2022\\vscode\\sysid_data20220125-160421.json",
+    "NetworkTables Settings": {
+      "serverTeam": "4456"
+    },
+    "mode": "Client",
+    "serverTeam": "4456"
+  }
+}
