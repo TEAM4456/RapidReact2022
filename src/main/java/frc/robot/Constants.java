@@ -20,11 +20,13 @@ public final class Constants {
     public static final DifferentialDriveKinematics kTrackWidthMeters = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
     public static double maxVolts = 28;
     public static int maxVelocity = 9;
-    public static double kPDriveVelocity = 1.5294;
+    public static double kPDriveVelocity = /**0.41408**/ 0;
+    public static double kIDriveVelocity = 0;
+    public static double kDDriveVeloctiy = 0;
     public static final int kEncoderCPR = 1024;
-    public static final double ksVolts = 0.49701;
-    public static final double kvVoltsSecondsPerMeter = 4.8933;
-    public static final double kaVoltsSecondSquaredPerMeter = 0.35959;
+    public static final double ksVolts = 0.49727;
+    public static final double kvVoltsSecondsPerMeter = 0.40739;
+    public static final double kaVoltsSecondSquaredPerMeter = 0.0239;
     public static final double kpDriveVel = 8.5;
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;

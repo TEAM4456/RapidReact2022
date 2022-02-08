@@ -61,16 +61,21 @@ public class Drive extends SubsystemBase {
   public void periodic() {
    
     SmartDashboard.putNumber("NavX Angle", RobotMap.navx.getAngle());
-    SmartDashboard.putNumber("Left Position", leftDrive.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Left Velocity", leftDrive.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Left Value", leftDrive.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Right Value", rightDrive.getSelectedSensorPosition());
     
-    SmartDashboard.putNumber("Output", leftDrive.getMotorOutputPercent());
-    SmartDashboard.putNumber("Distance", leftDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
+    SmartDashboard.putNumber("Left Output", leftDrive.getMotorOutputPercent());
+    SmartDashboard.putNumber("Right Output", rightDrive.getMotorOutputPercent());
+    //SmartDashboard.putNumber("OutPutDifference", leftDrive.getMotorOutputPercent() - rightDrive.getMotorOutputPercent());
+    
+
+    SmartDashboard.putNumber("Left Distance (meters)", leftDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
+    SmartDashboard.putNumber("Right Distance (meters)", rightDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
 
     SmartDashboard.putNumber("pose get X", pose.getX());
     SmartDashboard.putNumber("pose get Y", pose.getY());   
    
-    SmartDashboard.putNumber("Right Position", rightDrive.getSelectedSensorPosition());
+    
 
 
     odometry.update(getHeading(), -1*getMotorPositionsinMeters(leftDrive), getMotorPositionsinMeters(rightDrive));
@@ -84,7 +89,8 @@ public class Drive extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getSpeeds(){
-    return new DifferentialDriveWheelSpeeds(leftDrive.getSelectedSensorVelocity()*Constants.kEncoderMeterperPulse * 10, -1*rightDrive.getSelectedSensorVelocity()*Constants.kEncoderMeterperPulse * 10);
+    return new DifferentialDriveWheelSpeeds(leftDrive.getSelectedSensorVelocity()*Constants.kEncoderMeterperPulse *10, -1*rightDrive.getSelectedSensorVelocity()*Constants.kEncoderMeterperPulse * 10);
+  
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
