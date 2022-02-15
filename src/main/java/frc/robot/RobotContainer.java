@@ -26,7 +26,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithArcadeCommand;
+import frc.robot.commands.runIntake;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -46,19 +48,10 @@ public class RobotContainer {
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public final Drive drive = new Drive(RobotMap.leftMaster, RobotMap.rightMaster);
-
+  //private final Intake intake = new Intake(RobotMap.intakeTalon);
   public final static DifferentialDrive diffDrive = new DifferentialDrive(RobotMap.leftMaster, RobotMap.rightMaster);
-  
   public final XboxController controller = new XboxController(0);
-  //private final DriveWithArcadeCommand driveWithArcadeCommand = new DriveWithArcadeCommand(drive, controller);
-  
-  //JoystickButton aButton = new JoystickButton(controller, 1);
-
-  //Ramsete Command Setup
-  //DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(Constants.ksVolts, Constants.kvVoltsSecondsPerMeter, Constants.kaVoltsSecondSquaredPerMeter), Constants.kTrackWidthMeters, 0);
-
-  //TrajectoryConfig config = new TrajectoryConfig(Constants.maxVelocity, Constants.kMaxAccelerationMetersPerSecondSquared).
-        //setKinematics(Constants.kTrackWidthMeters).addConstraint(autoVoltageConstraint);
+ 
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -95,8 +88,10 @@ public class RobotContainer {
 
 
   private void configureButtonBindings() {
-    JoystickButton aButton = new JoystickButton(controller, 1);
-      aButton.whileActiveContinuous(new DriveWithArcadeCommand(drive, controller));
+   /**  JoystickButton aButton = new JoystickButton(controller, 1);
+    aButton.whileHeld(new runIntake(intake, 0.5));
+    JoystickButton bButton = new JoystickButton(controller, 2);
+    bButton.whileHeld(new runIntake(intake, -0.5));*/
   }
 
   
@@ -106,14 +101,14 @@ public class RobotContainer {
     drive.zeroHeading();
     
     
-    /**String trajecotoryJSON = "Paths/test.path";
+    String trajecotoryJSON = "paths/Test2.wpilib.json";
     Trajectory traj = new Trajectory();
     try { 
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajecotoryJSON);
       traj = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory" + trajecotoryJSON, ex.getStackTrace());
-    }**/
+    }
       
 
      var autoVoltageConstraint =
@@ -124,7 +119,7 @@ public class RobotContainer {
         TrajectoryConfig config = new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond, Constants.kMaxAccelerationMetersPerSecondSquared).
         setKinematics(drive.getKinematics()).addConstraint(autoVoltageConstraint);
 
-        Trajectory traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)), List.of(new Translation2d(1, 0), new Translation2d(2, 0)), new Pose2d(3, 0, new Rotation2d(0)), config);
+        //Trajectory traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)), List.of(new Translation2d(1, 0), new Translation2d(2, 0)), new Pose2d(3, 0, new Rotation2d(0)), config);
         
         RamseteCommand ramseteCommand = new RamseteCommand(
           traj, 

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
@@ -33,5 +35,6 @@ public final class Constants {
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
     public static final double kEncoderMeterperPulse = .1524 * Math.PI / 2048 / 10.71; //pulse * diameter * pi / pulse per rotation / 10.71 (gear reduction)
-    
+    public static final TalonFXInvertType kInvertType = TalonFXInvertType.CounterClockwise;
+
 }
