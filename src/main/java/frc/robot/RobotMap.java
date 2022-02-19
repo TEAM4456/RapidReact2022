@@ -24,10 +24,14 @@ public class RobotMap {
     // public static ADXRS450_Gyro gyro;
     public static WPI_TalonFX leftMaster;
     public static WPI_TalonFX rightMaster;
+    public static WPI_TalonFX intakeTalon;
 
     public static AHRS navx;
-
-    public static WPI_TalonFX intakeTalon;
+    
+    public static WPI_TalonSRX leftArmHeight;
+    public static WPI_TalonSRX leftArmAngle;
+    public static WPI_TalonSRX rightArmHeight;
+    public static WPI_TalonSRX rightArmAngle;
     
 
     public static void init(){
@@ -50,6 +54,13 @@ public class RobotMap {
         rightMaster.setInverted(TalonFXInvertType.Clockwise);
 
         //intakeTalon = new WPI_TalonFX(5);
+
+        leftArmHeight = new WPI_TalonSRX(6);
+        leftArmAngle = new WPI_TalonSRX(7);
+        //rightArmHeight = new WPI_TalonSRX(8);
+        //leftArmAngle = new WPI_TalonSRX(9);
+
+
         
 
         

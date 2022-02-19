@@ -22,11 +22,16 @@ import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstrai
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveWithArcadeCommand;
+import frc.robot.commands.runAngle;
+import frc.robot.commands.runHeight;
 import frc.robot.commands.runIntake;
+import frc.robot.commands.setEndGame;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,11 +49,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public final Drive drive = new Drive(RobotMap.leftMaster, RobotMap.rightMaster);
   //private final Intake intake = new Intake(RobotMap.intakeTalon);
+  private final Arm leftArm = new Arm(RobotMap.leftArmHeight, RobotMap.rightArmAngle);
+  //private final Arm rightArm = new Arm(RobotMap.rightArmHeight, RobotMap.rightArmAngle);
   public final static DifferentialDrive diffDrive = new DifferentialDrive(RobotMap.leftMaster, RobotMap.rightMaster);
   public final XboxController controller = new XboxController(0);
  
@@ -56,8 +61,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindindigs
-  //  configureButtonBindings();
+   
     drive.setDefaultCommand(new RunCommand(() -> diffDrive.arcadeDrive(controller.getRawAxis(0), controller.getRawAxis(1), controller.getRightStickButtonPressed()), drive));
     configureButtonBindings();
 
@@ -87,16 +91,40 @@ public class RobotContainer {
   }*/
 
 
-  private void configureButtonBindings() {
-   /**  JoystickButton aButton = new JoystickButton(controller, 1);
-    aButton.whileHeld(new runIntake(intake, 0.5));
-    JoystickButton bButton = new JoystickButton(controller, 2);
-    bButton.whileHeld(new runIntake(intake, -0.5));*/
+  public void configureButtonBindings() {
+    //Basic control scheme
+    if(SmartDashboard.getBoolean("EndGame", false) == false) {
+      //JoystickButton aButton = new JoystickButton(controller, 1);
+      //aButton.whileHeld(new runIntake(intake, 0.5));
+      //JoystickButton bButton = new JoystickButton(controller, 2);
+      //bButton.whileHeld(new runIntake(intake, -0.5));
+      JoystickButton leftMenuButton = new JoystickButton(controller, 7);
+      leftMenuButton.whenPressed(new setEndGame());
+      
+    }
+    else if(SmartDashboard.getBoolean("EndGame", false) == true) {
+      JoystickButton leftBumper2 = new JoystickButton(controller, 5);
+      leftBumper2.whileHeld(new runHeight(leftArm, 0.5));
+      JoystickButton rightBumper2 = new JoystickButton(controller, 6);
+      //rightBumper2.whileHeld(new runHeight(rightArm, 0.5));
+      JoystickButton leftMenu2 = new JoystickButton(controller, 7);
+      leftMenu2.whileHeld(new runHeight(leftArm, -0.5));
+      JoystickButton rightMenu2 = new JoystickButton(controller, 8);
+      //rightMenu2.whileHeld(new runHeight(rightArm, -0.5));
+      JoystickButton aButton2 = new JoystickButton(controller, 1);
+      aButton2.whileHeld(new runAngle(leftArm, -0.5));
+      JoystickButton xButton2 = new JoystickButton(controller, 3);
+      xButton2.whileHeld(new runAngle(leftArm, 0.5));
+      JoystickButton bButton2 = new JoystickButton(controller, 2);
+      //bButton2.whileHeld(new runAngle(rightArm, -0.5));
+      JoystickButton yButton2 = new JoystickButton(controller, 4);
+      //yButton2.whileHeld(new runAngle(rightArm, 0.5));
+    }
+    
   }
 
   
   public Command getAutonomousCommand() { 
-
     drive.resetOdometry(drive.getPose());
     drive.zeroHeading();
     
