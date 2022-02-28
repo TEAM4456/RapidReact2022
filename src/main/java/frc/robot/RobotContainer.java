@@ -52,17 +52,18 @@ public class RobotContainer {
 
   public final Drive drive = new Drive(RobotMap.leftMaster, RobotMap.rightMaster);
   //private final Intake intake = new Intake(RobotMap.intakeTalon);
-  private final Arm leftArm = new Arm(RobotMap.leftArmHeight, RobotMap.rightArmAngle);
-  //private final Arm rightArm = new Arm(RobotMap.rightArmHeight, RobotMap.rightArmAngle);
+  private final Arm leftArm = new Arm(RobotMap.leftArmHeight, RobotMap.leftArmAngle);
+  private final Arm rightArm = new Arm(RobotMap.rightArmHeight, RobotMap.rightArmAngle);
   public final static DifferentialDrive diffDrive = new DifferentialDrive(RobotMap.leftMaster, RobotMap.rightMaster);
   public final XboxController controller = new XboxController(0);
+  public final Joystick buttonBoard = new Joystick(1);
  
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
    
-    drive.setDefaultCommand(new RunCommand(() -> diffDrive.arcadeDrive(controller.getRawAxis(0), controller.getRawAxis(1), controller.getRightStickButtonPressed()), drive));
+    drive.setDefaultCommand(new RunCommand(() -> diffDrive.arcadeDrive(controller.getRawAxis(1), controller.getRawAxis(0), controller.getRightStickButtonPressed()), drive));
     configureButtonBindings();
 
   }
@@ -93,33 +94,55 @@ public class RobotContainer {
 
   public void configureButtonBindings() {
     //Basic control scheme
-    if(SmartDashboard.getBoolean("EndGame", false) == false) {
+    //if(SmartDashboard.getBoolean("EndGame", false) == false) {
       //JoystickButton aButton = new JoystickButton(controller, 1);
       //aButton.whileHeld(new runIntake(intake, 0.5));
       //JoystickButton bButton = new JoystickButton(controller, 2);
       //bButton.whileHeld(new runIntake(intake, -0.5));
-      JoystickButton leftMenuButton = new JoystickButton(controller, 7);
-      leftMenuButton.whenPressed(new setEndGame());
+      JoystickButton leftBumper = new JoystickButton(controller, 5);
+      leftBumper.whileHeld(new runHeight(rightArm, 0.5));
+      JoystickButton leftMenu = new JoystickButton(controller, 7);
+      leftMenu.whileHeld(new runHeight(rightArm, -0.5));
+      JoystickButton rightBumper = new JoystickButton(controller, 6);
+      rightBumper.whileHeld(new runHeight(leftArm, 0.5));
+      JoystickButton rightMenu = new JoystickButton(controller, 8);
+      rightMenu.whileHeld(new runHeight(leftArm, -0.5));
+      JoystickButton yButton = new JoystickButton(controller, 4);
+      yButton.whileHeld(new runAngle(rightArm, -0.5));
+      JoystickButton xButton = new JoystickButton(controller, 3);
+      xButton.whileHeld(new runAngle(rightArm, 0.5));
+      JoystickButton bButton = new JoystickButton(controller, 2);
+      bButton.whileHeld(new runAngle(leftArm, 0.5));
+      JoystickButton aButton = new JoystickButton(controller, 1);
+      aButton.whileHeld(new runAngle(leftArm, -0.5));
+      JoystickButton button1 = new JoystickButton(buttonBoard, 1);
+      button1.toggleWhenPressed(new runHeight(rightArm, -0.12));
+      JoystickButton button2 = new JoystickButton(buttonBoard, 2);
+      button2.toggleWhenPressed(new runHeight(leftArm, -0.15));     
+
+
+      //leftMenuButton.whenPressed(new setEndGame());
       
-    }
+      
+    /**}
     else if(SmartDashboard.getBoolean("EndGame", false) == true) {
       JoystickButton leftBumper2 = new JoystickButton(controller, 5);
-      leftBumper2.whileHeld(new runHeight(leftArm, 0.5));
+      //leftBumper2.whileHeld(new runHeight(leftArm, 0.5));
       JoystickButton rightBumper2 = new JoystickButton(controller, 6);
       //rightBumper2.whileHeld(new runHeight(rightArm, 0.5));
       JoystickButton leftMenu2 = new JoystickButton(controller, 7);
-      leftMenu2.whileHeld(new runHeight(leftArm, -0.5));
+      //leftMenu2.whileHeld(new runHeight(leftArm, -0.5));
       JoystickButton rightMenu2 = new JoystickButton(controller, 8);
       //rightMenu2.whileHeld(new runHeight(rightArm, -0.5));
       JoystickButton aButton2 = new JoystickButton(controller, 1);
-      aButton2.whileHeld(new runAngle(leftArm, -0.5));
+      //aButton2.whileHeld(new runAngle(leftArm, -0.5));
       JoystickButton xButton2 = new JoystickButton(controller, 3);
-      xButton2.whileHeld(new runAngle(leftArm, 0.5));
+      //xButton2.whileHeld(new runAngle(leftArm, 0.5));
       JoystickButton bButton2 = new JoystickButton(controller, 2);
       //bButton2.whileHeld(new runAngle(rightArm, -0.5));
       JoystickButton yButton2 = new JoystickButton(controller, 4);
       //yButton2.whileHeld(new runAngle(rightArm, 0.5));
-    }
+    }*/
     
   }
 

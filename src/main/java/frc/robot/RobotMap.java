@@ -8,6 +8,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
@@ -19,12 +20,17 @@ import com.kauailabs.navx.frc.AHRS;
 public class RobotMap {
    
    
-    //public static WPI_TalonSRX leftFollower;
-    //public static WPI_TalonSRX rightFollower;
+    
+    
     // public static ADXRS450_Gyro gyro;
+
     public static WPI_TalonFX leftMaster;
+    public static WPI_TalonSRX leftFollower;
     public static WPI_TalonFX rightMaster;
+    public static WPI_TalonSRX rightFollower;
+
     public static WPI_TalonFX intakeTalon;
+    public static WPI_TalonSRX dumpTalon;
 
     public static AHRS navx;
     
@@ -36,29 +42,30 @@ public class RobotMap {
 
     public static void init(){
 
-        leftMaster = new WPI_TalonFX(3);
+        leftMaster = new WPI_TalonFX(1);
         leftMaster.configFactoryDefault();
-        //leftFollower = new WPI_TalonSRX(2);
-        //leftFollower.set(ControlMode.Follower, 1); 
+        leftFollower = new WPI_TalonSRX(4);
+        leftFollower.set(ControlMode.Follower, 1); 
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 20);
         leftMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
         leftMaster.setInverted(TalonFXInvertType.CounterClockwise);
         leftMaster.setSelectedSensorPosition(0, 0, 0);
 
-        rightMaster = new WPI_TalonFX(1);
+        rightMaster = new WPI_TalonFX(3);
         leftMaster.configFactoryDefault();
-        //rightFollower = new WPI_TalonSRX(4);
-        //rightFollower.set(ControlMode.Follower, 3);
+        rightFollower = new WPI_TalonSRX(2);
+        rightFollower.set(ControlMode.Follower, 3);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 20);
-        rightMaster.setSelectedSensorPosition(0, 0, 0);
+        leftMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
         rightMaster.setInverted(TalonFXInvertType.Clockwise);
+        rightMaster.setSelectedSensorPosition(0, 0, 0);
 
         //intakeTalon = new WPI_TalonFX(5);
 
-        leftArmHeight = new WPI_TalonSRX(6);
+        leftArmHeight = new WPI_TalonSRX(5);
         leftArmAngle = new WPI_TalonSRX(7);
-        //rightArmHeight = new WPI_TalonSRX(8);
-        //leftArmAngle = new WPI_TalonSRX(9);
+        rightArmHeight = new WPI_TalonSRX(6);
+        rightArmAngle = new WPI_TalonSRX(8);
 
 
         

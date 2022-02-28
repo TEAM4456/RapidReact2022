@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private boolean endGameCondition = false;
+  //private boolean endGameCondition = false;
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -30,8 +30,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     RobotMap.init();
-    SmartDashboard.putBoolean("Endgame", false);
-    endGameCondition = SmartDashboard.getBoolean("EndGame", false);
+    //SmartDashboard.putBoolean("EndGame", false);
+    //endGameCondition = SmartDashboard.getBoolean("EndGame", false);
     m_robotContainer = new RobotContainer();
     
     
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    SmartDashboard.putBoolean("EndGame", false);
+    //SmartDashboard.putBoolean("EndGame", false);
     
   }
 
@@ -90,18 +90,18 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    SmartDashboard.putBoolean("Endgame", false);
-    endGameCondition = SmartDashboard.getBoolean("EndGame", false);
+    //SmartDashboard.putBoolean("EndGame", false);
+    //endGameCondition = SmartDashboard.getBoolean("EndGame", false);
     
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(endGameCondition != SmartDashboard.getBoolean("EndGame", false)) {
-      m_robotContainer.configureButtonBindings();
-      endGameCondition = SmartDashboard.getBoolean("EndGame", false);
-    }
+    //if(endGameCondition != SmartDashboard.getBoolean("EndGame", false)) {
+     // m_robotContainer.configureButtonBindings();
+      //endGameCondition = SmartDashboard.getBoolean("EndGame", false);
+    //}
   }
 
   @Override

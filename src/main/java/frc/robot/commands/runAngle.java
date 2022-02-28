@@ -25,12 +25,14 @@ public class runAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.runAngle(0.5);
+    arm.runAngle(percent);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    arm.runAngle(0);
+  }
 
   // Returns true when the command should end.
   @Override
