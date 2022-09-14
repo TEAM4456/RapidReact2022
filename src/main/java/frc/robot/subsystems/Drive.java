@@ -61,16 +61,16 @@ public class Drive extends SubsystemBase {
   public void periodic() {
    
     SmartDashboard.putNumber("NavX Angle", RobotMap.navx.getAngle());
-    SmartDashboard.putNumber("Left Value", leftDrive.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Right Value", rightDrive.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Left Value", leftDrive.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Right Value", rightDrive.getSelectedSensorPosition());
     
     SmartDashboard.putNumber("Left Output", leftDrive.getMotorOutputPercent());
     SmartDashboard.putNumber("Right Output", rightDrive.getMotorOutputPercent());
     //SmartDashboard.putNumber("OutPutDifference", leftDrive.getMotorOutputPercent() - rightDrive.getMotorOutputPercent());
     
 
-    SmartDashboard.putNumber("Left Distance (meters)", leftDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
-    SmartDashboard.putNumber("Right Distance (meters)", rightDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
+    //SmartDashboard.putNumber("Left Distance (meters)", leftDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
+    //SmartDashboard.putNumber("Right Distance (meters)", rightDrive.getSelectedSensorPosition() * Constants.kEncoderMeterperPulse);
 
     SmartDashboard.putNumber("pose get X", pose.getX());
     SmartDashboard.putNumber("pose get Y", pose.getY());   

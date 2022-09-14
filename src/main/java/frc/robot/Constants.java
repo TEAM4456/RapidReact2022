@@ -21,7 +21,7 @@ public final class Constants {
     
     public static final DifferentialDriveKinematics kTrackWidthMeters = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
     public static double maxVolts = 28;
-    public static int maxVelocity = 9;
+    public static int maxVelocity = 7;
     public static double kPDriveVelocity = /**0.41408**/ 0;
     public static double kIDriveVelocity = 0;
     public static double kDDriveVeloctiy = 0;
@@ -30,8 +30,8 @@ public final class Constants {
     public static final double kvVoltsSecondsPerMeter = 0.40739;
     public static final double kaVoltsSecondSquaredPerMeter = 0.0239;
     public static final double kpDriveVel = 8.5;
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxSpeedMetersPerSecond = 2.5;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 2.5;
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
     public static final double kEncoderMeterperPulse = .1524 * Math.PI / 2048 / 10.71; //pulse * diameter * pi / pulse per rotation / 10.71 (gear reduction)
